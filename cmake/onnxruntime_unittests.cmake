@@ -1355,6 +1355,9 @@ if(onnxruntime_USE_CUDA AND NOT onnxruntime_MINIMAL_BUILD)
 endif()
 
 onnxruntime_apply_test_target_workarounds(onnxruntime_test_all)
+add_test(NAME GgufQuantPackedTest
+  COMMAND onnxruntime_provider_test "--gtest_filter=GgufQuantPackedTest.*"
+  WORKING_DIRECTORY $<TARGET_FILE_DIR:onnxruntime_test_all>)
 
 if(NOT onnxruntime_MINIMAL_BUILD AND NOT CMAKE_CROSSCOMPILING
   AND NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
