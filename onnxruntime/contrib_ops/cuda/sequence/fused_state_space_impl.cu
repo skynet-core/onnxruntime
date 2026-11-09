@@ -214,7 +214,8 @@ cudaError_t LaunchMamba2Verify(cudaStream_t stream, int rows, int64_t slots, int
   } else {
     MambaConvKernel<<<(channels + 127) / 128, 128, 0, stream>>>(proj, rows, stride, di, channels, conv_in, cw, cb,
                                                                 conv_out, act, state_row, slots);
-    if (rows > 1) {
+    // Single-token replay of a multi-row snapshot cache must retain its readout reduction order.
+    if (rows > 1 || slots > 1) {
       MambaSsmKernel<4><<<heads, 256, 0, stream>>>(proj, rows, stride, di, channels, heads, heads / groups, act,
                                                    ssm_state, dt_bias, a_negative, d_skip, time_step_min, ssm_snapshots,
                                                    readout, state_row, slots);
