@@ -40,7 +40,7 @@ jobs:
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: misspell # Check spellings as well
-        uses: reviewdog/action-misspell@840bfbe9f804da9afb0bd739dc4689012f3fdd2d # v1.30.4
+        uses: reviewdog/action-misspell@c846b6b0996029d2d39540c8ffebebbd957072db # v1.31.0
         with:
           github_token: ${{ secrets.github_token }}
           # No locale, so both US and UK spellings are accepted for now. With locale US, over 40% of findings on main
